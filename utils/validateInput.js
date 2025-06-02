@@ -9,7 +9,7 @@ export const validateInput = (input, rules) => {
     }
   
     for (const [key, rule] of Object.entries(rules)) {
-      console.log(`Validating ${key}:`, input[key]);
+      // console.log(`Validating ${key}:`, input[key]);
   
       // Check for required fields
       if (rule.required && (input[key] === undefined || input[key] === null || input[key] === '')) {
@@ -48,7 +48,7 @@ export const validateInput = (input, rules) => {
     for (const [field, rule] of Object.entries(rules)) {
       const value = input[field];
   
-      console.log(`Validating ${field}:`, value);
+      // console.log(`Validating ${field}:`, value);
   
       // Check required fields
       if (rule.required && (value === undefined || value === null || value === '')) {

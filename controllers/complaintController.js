@@ -3,8 +3,7 @@ import { handleSuccessResponse, handleErrorResponse } from '../utils/responseHan
 
 const saveComplaint = async (req, res) => {
   try {
-    console.log('📩 Received request to save complaint:', req.body);
-    
+    // Validate request body
     const result = await saveComplaintService(req.body);
 
     return res.json(handleSuccessResponse("Complaint saved successfully", result));

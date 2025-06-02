@@ -1,4 +1,4 @@
-import { saveComplaintToDb, saveSuggestion, sendNotifications } from '../models/complaintModel.js';
+import { saveComplaintToDb, saveSuggestion, sendNotifications, saveSentimentAnalysis } from '../models/complaintModel.js';
 import { validateComplaintInput } from '../utils/validateInput.js';
 
 export const saveComplaintService = async (complaintData) => {
@@ -12,7 +12,10 @@ export const saveComplaintService = async (complaintData) => {
     email: { required: false },
     txt_phone: { required: false },
     lang: { required: false },
-    ip: { required: false }
+    ip: { required: false },
+    sentiment: { required: false },
+    priority: { required: false },
+    toxicityLabels: { required: false }
   };
 
   const { errors, sanitizedInput } = validateComplaintInput(complaintData, required_params);
@@ -29,8 +32,22 @@ export const saveComplaintService = async (complaintData) => {
       opt_mx_institution_id: sanitizedInput.opt_mx_institution_id
     });
   }
+ // Normalize priority
+if (sanitizedInput.priority) {
+  sanitizedInput.priority = sanitizedInput.priority.replace(' Priority', '').trim();
+}
+// Save sentiment and toxicity labels if provided
+  let sentimentAnalysisId = null;
+  if (sanitizedInput.sentiment && sanitizedInput.priority && sanitizedInput.toxicityLabels) {
+    sentimentAnalysisId = await saveSentimentAnalysis(
+      complaint.id,
+      sanitizedInput.sentiment,
+      sanitizedInput.priority,
+      sanitizedInput.toxicityLabels
+    );
+  }
 
   await sendNotifications(sanitizedInput, complaint);
 
-  return complaint;
+  return { complaint, sentimentAnalysisId };
 };
