@@ -10,8 +10,8 @@ function sanitizeInput(input) {
 
 const checkComplaintStatus = async (req, res) => {
     try {
-        const reference = sanitizeInput(req.body.txt_reference);
-        const pin = sanitizeInput(req.body.txt_pin);
+        const reference = sanitizeInput(req.body.reference_number);
+        const pin = sanitizeInput(req.body.pin);
      // Debugging line
         
 

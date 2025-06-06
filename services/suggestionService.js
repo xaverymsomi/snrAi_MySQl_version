@@ -3,8 +3,8 @@ import { validateInput } from "../utils/validateInput.js"; // Assuming validatio
 
 export const saveSuggestionService = async (suggestionData) => {
   const validationRules = {
-    opt_mx_institution_id: { required: true, filter: "FILTER_VALIDATE_INT" },
-    tar_description: { required: true, filter: "FILTER_SANITIZE_SPECIAL_CHARS" },
+    institution_type: { required: true, filter: "FILTER_VALIDATE_INT" },
+    suggestion_description: { required: true, filter: "FILTER_SANITIZE_SPECIAL_CHARS" },
     txt_name: { required: false, filter: "FILTER_SANITIZE_SPECIAL_CHARS" }, // Optional field
     email: { required: false, filter: "FILTER_VALIDATE_EMAIL" }, // Optional field
     txt_phone: { required: false, filter: "FILTER_SANITIZE_SPECIAL_CHARS" }, // Optional field

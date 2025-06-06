@@ -6,8 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 export const saveSuggestion = (suggestionData) => {
   return new Promise((resolve, reject) => {
     const {
-      opt_mx_institution_id,
-      tar_description,
+      institution_type,
+      suggestion_description,
       txt_name,
       email,
       txt_phone
@@ -24,8 +24,8 @@ export const saveSuggestion = (suggestionData) => {
     `;
 
     const values = [
-      parseInt(opt_mx_institution_id),
-      tar_description,
+      parseInt(institution_type),
+      suggestion_description,
       dat_date,
       txt_name,
       email,
