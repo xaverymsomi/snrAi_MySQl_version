@@ -3,14 +3,16 @@ import { validateComplaintInput } from '../utils/validateInput.js';
 
 export const saveComplaintService = async (complaintData) => {
   const required_params = {
-    opt_mx_institution_id: { required: true },
-    tar_description: { required: true },
-    tar_suggestion_description: { required: false },
-    opt_mx_category_id: { required: true },
-    txt_responsible_person: { required: false },
-    txt_name: { required: false },
+    institution_type: { required: true },
+    complaint_description: { required: true },
+    suggestion_description: { required: false },
+    complaint_category: { required: true },
+    person_responsible: { required: false },
+    first_name: { required: false },
+    middle_name: { required: false },
+    last_name: { required: false },
     email: { required: false },
-    txt_phone: { required: false },
+    phone_number: { required: false },
     lang: { required: false },
     ip: { required: false },
     sentiment: { required: false },
@@ -25,11 +27,11 @@ export const saveComplaintService = async (complaintData) => {
   }
 
   const complaint = await saveComplaintToDb(sanitizedInput);
-  if (sanitizedInput.tar_suggestion_description) {
+  if (sanitizedInput.suggestion_description) {
     await saveSuggestion({
       opt_mx_complaint_id: complaint.id,
-      tar_suggestion_description: sanitizedInput.tar_suggestion_description,
-      opt_mx_institution_id: sanitizedInput.opt_mx_institution_id
+      tar_suggestion_description: sanitizedInput.suggestion_description,
+      opt_mx_institution_id: sanitizedInput.institution_type
     });
   }
  // Normalize priority

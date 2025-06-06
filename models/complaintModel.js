@@ -38,7 +38,7 @@ export const saveComplaintToDb = async (data) => {
 
   // Query to get institution details
   const institutionQuery = 'SELECT * FROM mx_institution WHERE id = ?';
-  const [institutionRows] = await db.promise().query(institutionQuery, [data.opt_mx_institution_id]);
+  const [institutionRows] = await db.promise().query(institutionQuery, [data.institution_type]);
 
   if (institutionRows.length === 0) throw new Error('Institution not found');
   const institution = institutionRows[0];
@@ -55,13 +55,13 @@ export const saveComplaintToDb = async (data) => {
   
   await db.promise().query(insertComplaintQuery, [
     1, // default status
-    data.opt_mx_institution_id,
-    data.opt_mx_category_id,
-    data.tar_description,
-    data.txt_responsible_person || null,
-    data.txt_name || null,
+    data.institution_type,
+    data.complaint_category,
+    data.complaint_description,
+    data.person_responsible || null,
+    data.first_name + data.middle_name + data.last_name || null,
     data.email || null,
-    data.txt_phone || null,
+    data.phone_number || null,
     referenceNumber,
     2, // complaint source (default value)
     rowValue,
