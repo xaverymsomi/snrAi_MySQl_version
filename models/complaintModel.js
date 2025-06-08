@@ -100,7 +100,7 @@ export const saveSuggestion = async (data) => {
   ]);
 };
 
-export const saveSentimentAnalysis = async (complaintId, sentiment, priority, toxicityLabels) => {
+export const saveSentimentAnalysis = async (sentiment, priority, toxicityLabels) => {
   const rowValue = getGUID();
   // Normalize input (optional safety)
   const cleanPriority = priority?.replace(' Priority', '').trim();
